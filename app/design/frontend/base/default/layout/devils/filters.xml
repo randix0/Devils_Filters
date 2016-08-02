@@ -7,15 +7,9 @@
             </action>
         </reference>
 
-        <!--<reference name="filter.catalog">-->
-            <!--<action method="setTemplate">-->
-                <!--<template>devils/filters/layer/view.phtml</template>-->
-            <!--</action>-->
-        <!--</reference>-->
-
-        <!--<reference name="content">-->
-            <!--<block type="layerednav/layer_view" name="content_filter" as="content_filter" before="product_list_toolbar"-->
-                   <!--template="devils/filters.phtml"/>-->
-        <!--</reference>-->
+        <reference name="content">
+            <block type="catalog/layer_view" name="content_filter" as="content_filter" before="product_list_toolbar"
+                   template="devils/filters/filters.phtml"/>
+        </reference>
     </catalog_category_layered>
 </layout>
