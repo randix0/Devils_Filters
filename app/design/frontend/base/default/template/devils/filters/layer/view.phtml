@@ -1,0 +1,36 @@
+<?php if($this->canShowBlock()):
+
+    $filtersHtml = '';
+    $_filters = $this->getFilters();
+    foreach ($_filters as $_filter) {
+        $_filter->setTemplate('devils/filters/layer/filter.phtml');
+        if ($_filter->getItemsCount()) {
+            $filtersHtml .= '<dt>'.$this->__($_filter->getName()).'</dt><dd>'.$_filter->getHtml().'<a href="#" class="shopby_more">'.$this->__('more...').'</a></dd>';
+        }
+    }
+
+    $q = Mage::app()->getRequest()->getParam('q');
+
+    if ( !empty($filtersHtml) || !empty($stateHtml) ): ?>
+        <div class="block block-layered-nav">
+            <form method="get">
+                <?php echo ($q ? '<input type="hidden" name="q" value="' . $q . '">' : ''); ?>
+                <div class="block-title">
+                    <strong><span><?php echo $this->__('Shop By') ?></span></strong>
+                </div>
+                <div class="block-content">
+                    <?php if ($this->canShowOptions()): ?>
+                        <p class="block-subtitle"><?php echo $this->__('Shopping Options') ?></p>
+                        <dl id="narrow-by-list">
+                            <?php echo $filtersHtml; ?>
+                        </dl>
+                    <?php endif; ?>
+                </div>
+                <div class="tCenter">
+                    <button type="submit" title="<?php echo $this->__('Filter products') ?>" class="button">
+                        <span><span><?php echo $this->__('Filter products') ?></span></span></button>
+                </div>
+            </form>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>

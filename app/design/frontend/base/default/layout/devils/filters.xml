@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <catalog_category_layered>
+        <reference name="catalog.leftnav">
+            <action method="setTemplate">
+                <template>devils/filters/layer/view.phtml</template>
+            </action>
+        </reference>
+
+        <!--<reference name="filter.catalog">-->
+            <!--<action method="setTemplate">-->
+                <!--<template>devils/filters/layer/view.phtml</template>-->
+            <!--</action>-->
+        <!--</reference>-->
+
+        <!--<reference name="content">-->
+            <!--<block type="layerednav/layer_view" name="content_filter" as="content_filter" before="product_list_toolbar"-->
+                   <!--template="devils/filters.phtml"/>-->
+        <!--</reference>-->
+    </catalog_category_layered>
+</layout>

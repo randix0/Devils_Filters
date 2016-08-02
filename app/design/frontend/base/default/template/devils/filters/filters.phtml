@@ -1,0 +1,136 @@
+<style>
+    body.overflowHidden {
+        overflow: hidden;
+    }
+    .devils-filter .block.block-layered-nav {
+        float: none;
+        width: auto;
+        overflow: auto;
+        height: 100%;
+        max-height: 75%;
+    }
+    .devils-filter .block {
+        position: relative;
+    }
+
+    .devils-filter .block .block-title {
+        border-bottom: none;
+        margin: 0;
+        padding: 0 0 15px 0;
+        line-height: 42px;
+        border-bottom: 1px solid #e8e8e8;
+    }
+
+    .devils-filter-wrapper {
+        /*overflow: auto;*/
+        /*max-height: 100%;*/
+    }
+
+    .devils-filter .block .block-content {
+        padding: 22px 0 0 0;
+    }
+
+    .devils-filter {
+        display: none;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0,0,0, 0.5);
+        z-index: 1000;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        padding: 30px 20px;
+    }
+
+    .devils-filter-close {
+        position: absolute;
+        top: 10px;
+        right: 5px;
+        background: url(<?php echo $this->getBaseUrl() ?>skin/frontend/base/default/images/close.png);
+        background-size: cover;
+        width: 25px;
+        height: 25px;
+        text-indent: -10000px;
+    }
+
+    .devils-filter-button {
+        display: none;
+        transform: rotate(270deg);
+        transform-origin: right bottom 0;
+        position: fixed;
+        top: 50%;
+        right: 0;
+        background-color: #500041;
+        color: #ffffff;
+        padding: 8px 15px;
+        margin: -70px 0 0 0;
+        cursor: pointer;
+        z-index: 100;
+    }
+    a.devils-filter-button:hover {
+        color: #ffffff;
+        text-decoration: none;
+    }
+
+    @media only screen and (max-width:959px){
+        .devils-filter-button {display: block;}
+    }
+
+    .fRight {float: right;}
+
+    .header-container {z-index: 1;}
+</style>
+    <?php
+    $filtersHtml = '';
+    $_filters = $this->getFilters();
+    foreach ($_filters as $_filter) {
+        if ($_filter->getType() == "catalog/layer_filter_category" && !Mage::getStoreConfig('shoppersettings/catalog/categories_filter') ) continue;
+        if ($_filter->getItemsCount()) {
+            $filtersHtml .= '<dt>'.$this->__($_filter->getName()).'</dt><dd>'.$_filter->getHtml().'<a href="#" class="shopby_more">'.$this->__('more...').'</a></dd>';
+        }
+    }
+    ?>
+
+    <?php if ( !empty($filtersHtml) ): ?>
+        <a class="devils-filter-button" onclick="ShowFilter.toggle();"><?php echo $this->__('Shop By') ?> +</a>
+        <div class="devils-filter">
+            <a class="devils-filter-close" onclick="ShowFilter.toggle();">X</a>
+            <form method="get">
+                <div class="block block-layered-nav">
+                    <div class="block-title">
+                        <strong>
+                            <span>
+                                <?php echo $this->__('Shop By') ?>
+                                <button type="submit" title="<?php echo $this->__('Filter products') ?>" class="button fRight">
+                                    <span><span><?php echo $this->__('Filter products') ?></span></span>
+                                </button>
+                            </span>
+                        </strong>
+                    </div>
+                    <div class="devils-filter-wrapper">
+                        <div class="block-content">
+                            <?php if ($this->canShowOptions()): ?>
+                                <p class="block-subtitle"><?php echo $this->__('Shopping Options') ?></p>
+                                <dl id="narrow-by-list">
+                                    <?php echo $filtersHtml; ?>
+                                </dl>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    <?php endif; ?>
+
+<script>
+    ShowFilter = {
+        state: 0,
+        toggle: function() {
+            jQuery('.devils-filter').toggle();
+            jQuery('body').toggleClass('overflowHidden');
+        }
+    }
+</script>
