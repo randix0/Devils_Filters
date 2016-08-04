@@ -87,8 +87,12 @@
     $filtersHtml = '';
     $_filters = $this->getFilters();
     foreach ($_filters as $_filter) {
-        $_filter->setTemplate('devils/filters/layer/filter.phtml');
-        if ($_filter->getType() == "catalog/layer_filter_category" && !Mage::getStoreConfig('shoppersettings/catalog/categories_filter') ) continue;
+        $filterType = $_filter->getType();
+        if ($filterType == 'catalog/layer_filter_price') {
+            $_filter->setTemplate('devils/filters/layer/filter/price.phtml');
+        } else {
+            $_filter->setTemplate('devils/filters/layer/filter.phtml');
+        }
         if ($_filter->getItemsCount()) {
             $filtersHtml .= '<dt>'.$this->__($_filter->getName()).'</dt><dd>'.$_filter->getHtml().'<a href="#" class="shopby_more">'.$this->__('more...').'</a></dd>';
         }

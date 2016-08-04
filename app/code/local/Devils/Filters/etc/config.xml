@@ -17,6 +17,7 @@
             <catalog>
                 <rewrite>
                     <layer_filter_attribute>Devils_Filters_Model_Layer_Filter_Attribute</layer_filter_attribute>
+                    <layer_filter_price>Devils_Filters_Model_Layer_Filter_Price</layer_filter_price>
                 </rewrite>
             </catalog>
             <catalog_resource>

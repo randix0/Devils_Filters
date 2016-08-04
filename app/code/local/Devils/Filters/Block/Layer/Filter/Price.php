@@ -25,4 +25,14 @@ class Devils_Filters_Block_Layer_Filter_Price extends Mage_Catalog_Block_Layer_F
         }
         return false;
     }
+
+    /**
+     * Retrieve filter items
+     *
+     * @return array
+     */
+    public function getMaxPriceInt()
+    {
+        return $this->_filter->getMaxPriceInt();
+    }
 }
