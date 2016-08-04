@@ -32,9 +32,4 @@ class Devils_Filters_Block_Layer_Filter_Attribute extends Mage_Catalog_Block_Lay
         }
         return false;
     }
-
-    public function shouldDisplayProductCount()
-    {
-        return true;
-    }
 }
