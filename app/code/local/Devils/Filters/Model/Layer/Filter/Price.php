@@ -115,9 +115,11 @@ class Devils_Filters_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_F
     {
         $minPrice = $this->getData('devils_min_price_int');
         if (is_null($minPrice)) {
-            $collection = clone $this->getLayer()->getProductCollection();
-//            $collection->getSelect()->reset(Zend_Db_Select::WHERE);
+            $collection = $this->getLayer()->getProductCollection();
+            $whereSelectPart = $collection->getSelect()->getPart(Zend_Db_Select::WHERE);
+            $collection->getSelect()->reset(Zend_Db_Select::WHERE);
             $minPrice = $collection->getMinPrice();
+            $collection->getSelect()->setPart(Zend_Db_Select::WHERE, $whereSelectPart);
             $minPrice = floor($minPrice);
             $this->setData('devils_min_price_int', $minPrice);
         }
@@ -134,9 +136,11 @@ class Devils_Filters_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_F
     {
         $maxPrice = $this->getData('devils_max_price_int');
         if (is_null($maxPrice)) {
-            $collection = clone $this->getLayer()->getProductCollection();
-//            $collection->getSelect()->reset(Zend_Db_Select::WHERE);
+            $collection = $this->getLayer()->getProductCollection();
+            $whereSelectPart = $collection->getSelect()->getPart(Zend_Db_Select::WHERE);
+            $collection->getSelect()->reset(Zend_Db_Select::WHERE);
             $maxPrice = $collection->getMaxPrice();
+            $collection->getSelect()->setPart(Zend_Db_Select::WHERE, $whereSelectPart);
             $maxPrice = floor($maxPrice);
             $this->setData('devils_max_price_int', $maxPrice);
         }

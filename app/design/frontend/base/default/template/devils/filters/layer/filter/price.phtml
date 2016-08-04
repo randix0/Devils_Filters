@@ -1,38 +1,38 @@
-<ol>
-    <?php
-
+<?php
     /** @var Devils_Filters_Block_Layer_Filter_Price $this */
     $minPrice = $this->getMinPrice();
     $maxPrice = $this->getMaxPrice();
     $inputName = $this->getFilter()->getRequestVar();
     list($filterMinPrice, $filterMaxPrice) = $this->getRequestedRange($inputName);
-    ?>
+?>
+<dt>
+    <?php echo $this->__($this->getName()); ?>:
+    <span class="priceSlider-amountTag">
+        <?php echo $filterMinPrice . ' - ' . $filterMaxPrice; ?>
+    </span>
+    <span class="priceSlider-currencyTag"></span>
+</dt>
+<dd>
+    <ol>
+        <input type="hidden" class="priceSlider-amount" name="<?php echo $inputName ?>"
+               value="<?php echo $filterMinPrice . '-' . $filterMaxPrice?>">
+        <div class="priceSlider-range"></div>
+    </ol>
 
-    <input type="text" id="amount" name="<?php echo $inputName ?>"
-           value="<?php echo $filterMinPrice . '-' . $filterMaxPrice?>">
-    <div id="slider-range"></div>
-</ol>
-
-
-<!--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">-->
-<!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
-<!--<script>-->
-<!--    jQuery.noConflict();-->
-<!--</script>-->
-<!--<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>-->
-<script>
-//    jQuery.noConflict();
-    jQuery( document ).ready(function( $ ) {
-        $( "#slider-range" ).slider({
-            range: true,
-            min: <?php echo $minPrice; ?>,
-            max: <?php echo $maxPrice; ?>,
-            values: [ <?php echo $filterMinPrice; ?>, <?php echo $filterMaxPrice; ?> ],
-            slide: function( event, ui ) {
-                $( "#amount" ).val(ui.values[ 0 ] + "-" + ui.values[ 1 ] );
-            }
-        });
-        $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-            " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-    } );
-</script>
+    <script>
+        jQuery( document ).ready(function( $ ) {
+            $('.priceSlider-range').slider({
+                range: true,
+                min: <?php echo $minPrice; ?>,
+                max: <?php echo $maxPrice; ?>,
+                values: [ <?php echo $filterMinPrice; ?>, <?php echo $filterMaxPrice; ?> ],
+                slide: function( event, ui ) {
+                    $('.priceSlider-amount').val(ui.values[ 0 ] + '-' + ui.values[ 1 ] );
+                    $('.priceSlider-amountTag').html(ui.values[ 0 ] + ' - ' + ui.values[ 1 ] );
+                }
+            });
+            $('.priceSlider-amount').val( $( '.priceSlider-range').slider( "values", 0 ) +
+                "-" + $('.priceSlider-range').slider( "values", 1 ) );
+        } );
+    </script>
+</dd>

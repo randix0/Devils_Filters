@@ -6,11 +6,11 @@
         $filterType = $_filter->getType();
         if ($filterType == 'catalog/layer_filter_price') {
             $_filter->setTemplate('devils/filters/layer/filter/price.phtml');
+            $filtersHtml .= $_filter->getHtml();
         } else {
             $_filter->setTemplate('devils/filters/layer/filter.phtml');
-        }
-        if ($filterType == 'catalog/layer_filter_price' || $_filter->getItemsCount()) {
-            $filtersHtml .= '<dt>'.$this->__($_filter->getName()).'</dt><dd>'.$_filter->getHtml().'<a href="#" class="shopby_more">'.$this->__('more...').'</a></dd>';
+            $filtersHtml .= '<dt>' . $this->__($_filter->getName()) . '</dt><dd>' . $_filter->getHtml()
+                .'<a href="#" class="shopby_more">' . $this->__('more...') . '</a></dd>';
         }
     }
 
