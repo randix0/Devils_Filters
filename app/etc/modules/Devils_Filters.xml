@@ -6,6 +6,7 @@
             <codePool>local</codePool>
             <depends>
                 <Mage_Catalog />
+                <Queldorei_Shoppercategories />
             </depends>
         </Devils_Filters>
     </modules>

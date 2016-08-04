@@ -8,7 +8,7 @@ class Devils_Filters_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_F
      *
      * @return array
      */
-    public function getItems()
+    public function getItems0()
     {
         if (is_null($this->_items)) {
             $this->_initItems();
@@ -24,7 +24,7 @@ class Devils_Filters_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_F
      *
      * @return Mage_Catalog_Model_Layer_Filter_Price
      */
-    public function apply(Zend_Controller_Request_Abstract $request, $filterBlock)
+    public function apply0(Zend_Controller_Request_Abstract $request, $filterBlock)
     {
         /**
          * Filter must be string: $fromPrice-$toPrice
@@ -74,10 +74,8 @@ class Devils_Filters_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_F
      *
      * @return array
      */
-    protected function _getItemsData()
+    protected function _getItemsData0()
     {
-        $maxPrice = $this->getMaxPriceInt();
-
         if (Mage::app()->getStore()->getConfig(self::XML_PATH_RANGE_CALCULATION) == self::RANGE_CALCULATION_IMPROVED) {
             return $this->_getCalculatedItemsData();
         } elseif ($this->getInterval()) {
@@ -105,5 +103,44 @@ class Devils_Filters_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_F
         }
 
         return $data;
+    }
+
+
+    /**
+     * Get maximum price from layer products set
+     *
+     * @return float
+     */
+    public function getSliderMinPrice()
+    {
+        $minPrice = $this->getData('devils_min_price_int');
+        if (is_null($minPrice)) {
+            $collection = clone $this->getLayer()->getProductCollection();
+//            $collection->getSelect()->reset(Zend_Db_Select::WHERE);
+            $minPrice = $collection->getMinPrice();
+            $minPrice = floor($minPrice);
+            $this->setData('devils_min_price_int', $minPrice);
+        }
+
+        return $minPrice;
+    }
+
+    /**
+     * Get maximum price from layer products set
+     *
+     * @return float
+     */
+    public function getSliderMaxPrice()
+    {
+        $maxPrice = $this->getData('devils_max_price_int');
+        if (is_null($maxPrice)) {
+            $collection = clone $this->getLayer()->getProductCollection();
+//            $collection->getSelect()->reset(Zend_Db_Select::WHERE);
+            $maxPrice = $collection->getMaxPrice();
+            $maxPrice = floor($maxPrice);
+            $this->setData('devils_max_price_int', $maxPrice);
+        }
+
+        return $maxPrice;
     }
 }

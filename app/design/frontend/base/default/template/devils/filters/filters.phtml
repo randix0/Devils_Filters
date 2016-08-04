@@ -93,7 +93,7 @@
         } else {
             $_filter->setTemplate('devils/filters/layer/filter.phtml');
         }
-        if ($_filter->getItemsCount()) {
+        if ($filterType == 'catalog/layer_filter_price' || $_filter->getItemsCount()) {
             $filtersHtml .= '<dt>'.$this->__($_filter->getName()).'</dt><dd>'.$_filter->getHtml().'<a href="#" class="shopby_more">'.$this->__('more...').'</a></dd>';
         }
     }
